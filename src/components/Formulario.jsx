@@ -1,6 +1,6 @@
 import React from 'react'
-
 import { useForm } from 'react-hook-form'
+import Button from '@material-ui/core/Button';
 
 const Formulario = ({ editing, selectedTask, addTask, setEditing, update }) => {
     
@@ -39,6 +39,7 @@ const Formulario = ({ editing, selectedTask, addTask, setEditing, update }) => {
         <div>
             <form onSubmit={prevenir}>
                 <label>Tarea</label>
+                
                 <input
                     type="text" 
                     name="task"
@@ -60,11 +61,11 @@ const Formulario = ({ editing, selectedTask, addTask, setEditing, update }) => {
                 {
                     editing? 
                         <div>
-                            <button onClick={handleSubmit(updateLoc)}>Guardar Cambios</button>
-                            <button onClick={cancelar}>Cancelar</button>
+                            <Button variant="contained" color="primary" onClick={handleSubmit(updateLoc)}>Guardar Cambios</Button>
+                            <Button variant="contained" color="secondary" onClick={cancelar}>Cancelar</Button>
                         </div>
                     : 
-                        <button onClick={handleSubmit(agregar)}>Agregar Tarea</button>
+                        <Button variant="contained" color="primary" onClick={handleSubmit(agregar)}>Agregar Tarea</Button>
                 }
             </form>
         </div>
