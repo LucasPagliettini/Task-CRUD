@@ -1,17 +1,18 @@
 import React, { Fragment } from 'react'
+import Tarea from './Tarea'
 
-const ListadoTareas = (props) => {
+const ListadoTareas = ({ edit, deleteTag, taskList }) => {
 
 
     return (
         <Fragment>
-            {props.taskList.length===0 ? <div>No hay Tareas</div> : <div></div>}
-            {props.taskList.map(task => 
-                    <div key={task.id}>
-                        <li>{task.id} - {task.task}</li>
-                        <button onClick={() => props.edit(task.id)}>Editar</button>
-                        <button onClick={() => props.deleteTag(task.id)}>Eliminar</button>    
-                    </div>
+            {taskList.length===0 ? <div>No hay Tareas</div> : null}
+            {taskList.map(task => 
+                <Tarea key={task.id}
+                    task={task}
+                    edit={edit}
+                    deleteTag={deleteTag}
+                    />
             )}
         </Fragment>
     )

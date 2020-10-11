@@ -4,20 +4,29 @@ import ListadoTareas from './components/ListadoTareas';
 
 function App() {
 
+  const data = localStorage.getItem('localTaskList');
+  const localTaskList = data!==null ? JSON.parse(data) : [];
 
-  const[selectedTask, setSelectedTask] = useState({})
-  const[taskList, setTaskList] = useState([]);
-  const[editing, setEditing] = useState(false)
+  const[selectedTask, setSelectedTask] = useState({});
+  const[taskList, setTaskList] = useState(localTaskList);
+  const[editing, setEditing] = useState(false);
 
-  const deleteTag = (id) => {
-    setTaskList(taskList.filter(iter => iter.id!==id))
+  const updatetaskList = (list) => {
+    localStorage.setItem('localTaskList', JSON.stringify(list));
+    setTaskList(list);
   }
+  const deleteTag = (id) => {
+    const listado=taskList.filter(iter => iter.id!==id)
+    updatetaskList(listado);
+  }
+
   const addTask =(task) => {
     let id;
     let lastPosition = taskList.length - 1;
     lastPosition > -1 ? id=taskList[lastPosition].id + 1 : id=0;
     let tarea={id:id, task:task};
-    setTaskList([...taskList, tarea]);
+    const listado = [...taskList, tarea]
+    updatetaskList(listado);
   }
 
 
@@ -29,7 +38,8 @@ function App() {
 
   const update = (task) => {
     const updatingTask={id:selectedTask.id, task:task.task}
-    setTaskList(taskList.map(iter => iter.id===updatingTask.id ? updatingTask: iter))
+    const listado=taskList.map(iter => iter.id===updatingTask.id ? updatingTask: iter)
+    updatetaskList(listado);
     setSelectedTask({})
     setEditing(false);
   }

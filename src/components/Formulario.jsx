@@ -2,18 +2,19 @@ import React from 'react'
 
 import { useForm } from 'react-hook-form'
 
-const Formulario = (props) => {
+const Formulario = ({ editing, selectedTask, addTask, setEditing, update }) => {
     
     const {register, errors, handleSubmit, setValue, getValues} = useForm();
 
     const iniciando = getValues('task')==="" ? true : false;
     
-    iniciando? (props.editing? setValue('task', props.selectedTask.task) : console.log("Formulario espera tarea")): console.log("Formulario tiene tarea")
+    if(iniciando)
+        if(editing)
+            setValue('task', selectedTask.task);
 
     const agregar = (data, e) => {
-        console.log(data.task)
         e.preventDefault();
-        props.addTask(data.task);
+        addTask(data.task);
         setValue('task', "")
 
     }
@@ -22,13 +23,13 @@ const Formulario = (props) => {
     
     const cancelar = (e) => {
 
-        props.setEditing(false);
+        setEditing(false);
         setValue('task', "");
     }
 
-    const update = (data, e) => {
+    const updateLoc = (data, e) => {
         e.preventDefault();
-        props.update(data);
+        update(data);
         setValue('task', "");
     }
     
@@ -57,13 +58,13 @@ const Formulario = (props) => {
                 </div>
                 
                 {
-                    props.editing? 
-                        (<div>
-                            <button onClick={handleSubmit(update)}>Guardar Cambios</button>
+                    editing? 
+                        <div>
+                            <button onClick={handleSubmit(updateLoc)}>Guardar Cambios</button>
                             <button onClick={cancelar}>Cancelar</button>
-                        </div>)
+                        </div>
                     : 
-                        (<button onClick={handleSubmit(agregar)}>Agregar Tarea</button>)
+                        <button onClick={handleSubmit(agregar)}>Agregar Tarea</button>
                 }
             </form>
         </div>
