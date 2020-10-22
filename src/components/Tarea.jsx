@@ -1,11 +1,16 @@
 import React from 'react'
+import { editTaskAction, deleteTaskAction } from '../redux/actions/taskActions';
+import { useDispatch } from 'react-redux';
 
-const Tarea = ({task, edit, deleteTag}) => {
+const Tarea = ({task}) => {
+    
+    const dispatch = useDispatch();
+
     return (
         <>
-            <li>{task.task}</li>
-            <button variant="contained" color="primary" onClick={() => edit(task.id)}>Editar</button>
-            <button onClick={() => deleteTag(task.id)}>Eliminar</button>    
+            <li>{task.id} - {task.description}</li>
+            <button onClick={() => dispatch(editTaskAction(task.id))}>Editar</button>
+            <button onClick={() => dispatch(deleteTaskAction(task.id))}>Eliminar</button>    
         </>
     )
 }

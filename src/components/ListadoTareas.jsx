@@ -1,8 +1,11 @@
 import React, { Fragment } from 'react'
 import Tarea from './Tarea'
+import { useSelector } from 'react-redux';
 
-const ListadoTareas = ({ edit, deleteTag, taskList }) => {
+const ListadoTareas = () => {
 
+    const taskState = useSelector(state => state.taskReducer);
+    const {taskList} = taskState;
 
     return (
         <Fragment>
@@ -10,8 +13,6 @@ const ListadoTareas = ({ edit, deleteTag, taskList }) => {
             {taskList.map(task => 
                 <Tarea key={task.id}
                     task={task}
-                    edit={edit}
-                    deleteTag={deleteTag}
                     />
             )}
         </Fragment>

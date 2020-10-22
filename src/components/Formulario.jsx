@@ -1,20 +1,27 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import Button from '@material-ui/core/Button';
+import { useDispatch, useSelector} from 'react-redux'
+import { addTaskAction, updateTaskAction, cancelEditingAction } from '../redux/actions/taskActions';
 
-const Formulario = ({ editing, selectedTask, addTask, setEditing, update }) => {
-    
+const Formulario = () => {
+
     const {register, errors, handleSubmit, setValue, getValues} = useForm();
+    
+    const dispatch = useDispatch();
+    const taskState = useSelector(state => state.taskReducer);
+    const {editing, selectedTask} = taskState;
 
     const iniciando = getValues('task')==="" ? true : false;
     
     if(iniciando)
         if(editing)
-            setValue('task', selectedTask.task);
+            setValue('task', selectedTask.description);
 
     const agregar = (data, e) => {
         e.preventDefault();
-        addTask(data.task);
+        console.log(data.task)
+        dispatch(addTaskAction(data.task));
         setValue('task', "")
 
     }
@@ -22,19 +29,16 @@ const Formulario = ({ editing, selectedTask, addTask, setEditing, update }) => {
     const prevenir = (e) => e.preventDefault();
     
     const cancelar = (e) => {
-
-        setEditing(false);
+        dispatch(cancelEditingAction());
         setValue('task', "");
     }
 
     const updateLoc = (data, e) => {
         e.preventDefault();
-        update(data);
+        dispatch(updateTaskAction(data.task));
         setValue('task', "");
     }
     
-
-
     return (
         <div>
             <form onSubmit={prevenir}>
