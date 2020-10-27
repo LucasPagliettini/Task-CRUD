@@ -8,7 +8,7 @@ const Tarea = ({task}) => {
 
     return (
         <>
-            <li>{task.id} - {task.description}</li>
+            <li>{task.description}</li>
             <button onClick={() => dispatch(editTaskAction(task.id))}>Editar</button>
             <button onClick={() => dispatch(deleteTaskAction(task.id))}>Eliminar</button>    
         </>

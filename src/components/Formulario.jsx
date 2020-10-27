@@ -9,19 +9,19 @@ const Formulario = () => {
     const {register, errors, handleSubmit, setValue, getValues} = useForm();
     
     const dispatch = useDispatch();
-    const taskState = useSelector(state => state.taskReducer);
-    const {editing, selectedTask} = taskState;
+    const {editing, selectedTask} = useSelector(state => state.taskReducer);
+    const currentUser = useSelector(state => state.userReducer);
+    
 
     const iniciando = getValues('task')==="" ? true : false;
-    
+
     if(iniciando)
         if(editing)
             setValue('task', selectedTask.description);
 
     const agregar = (data, e) => {
         e.preventDefault();
-        console.log(data.task)
-        dispatch(addTaskAction(data.task));
+        dispatch(addTaskAction(data.task, currentUser));
         setValue('task', "")
 
     }

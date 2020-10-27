@@ -4,13 +4,16 @@ import { useSelector } from 'react-redux';
 
 const ListadoTareas = () => {
 
-    const taskState = useSelector(state => state.taskReducer);
-    const {taskList} = taskState;
+    const globalState = useSelector(state => state);
+    const {taskList} = globalState.taskReducer;
+    const currentUser = globalState.userReducer;
+    const currentUserTaskList = taskList.filter(iter => iter.user===currentUser)
+
 
     return (
         <Fragment>
-            {taskList.length===0 ? <div>No hay Tareas</div> : null}
-            {taskList.map(task => 
+            {currentUserTaskList.length===0 ? <div>No hay Tareas</div> : null}
+            {currentUserTaskList.map(task => 
                 <Tarea key={task.id}
                     task={task}
                     />

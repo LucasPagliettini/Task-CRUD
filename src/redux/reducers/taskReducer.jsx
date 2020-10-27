@@ -20,7 +20,7 @@ const taskReducer = (state = taskState, action) => {
             let id;
             let lastPosition = state.taskList.length - 1;
             lastPosition > -1 ? id=state.taskList[lastPosition].id + 1 : id=0;
-            let newTask={id, description:action.payload};
+            let newTask={id, description:action.payload.description, user:action.payload.currentUser};
             updatedTaskList = [...state.taskList, newTask];
             updateLocalTaskList(updatedTaskList);
             return {...state, taskList: updatedTaskList};
@@ -28,10 +28,10 @@ const taskReducer = (state = taskState, action) => {
             const selectedItem = state.taskList.filter(task => task.id===action.payload);
             return {...state, editing: true, selectedTask: selectedItem[0]};
         case UPDATE_TASK:
-            const updatedTask={id:state.selectedTask.id, description:action.payload};
+            const updatedTask={...state.selectedTask, description:action.payload};
             updatedTaskList=state.taskList.map(iter => iter.id===updatedTask.id ? updatedTask : iter);
             updateLocalTaskList(updatedTaskList);
-            return {...state, taskList:updatedTaskList, editing:false}
+            return {...state, taskList:updatedTaskList, editing:false, selectedTask:{}}
         case DELETE_TASK:
             updatedTaskList=state.taskList.filter(iter => iter.id!==action.payload);
             updateLocalTaskList(updatedTaskList);

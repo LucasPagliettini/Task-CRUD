@@ -4,10 +4,10 @@ export const UPDATE_TASK = 'UPDATE_TASK';
 export const DELETE_TASK = 'DELETE_TASK';
 export const CANCEL_EDITINIG = 'CANCEL_EDITINIG'
 
-export const addTaskAction = (description) => {
+export const addTaskAction = (description, currentUser) => {
     return {
         type: ADD_TASK,
-        payload: description
+        payload: {description, currentUser}
     }
 }
 
