@@ -6,7 +6,7 @@ import { userLogoutAction } from '../redux/actions/userAction'
 
 const TaskComponents = () => {
 
-    const currentUser=useSelector(state => state.userReducer);
+    const currentUser=useSelector(state => state.userReducer.name);
     const dispatch = useDispatch();
 
     return (

@@ -10,7 +10,7 @@ const Formulario = () => {
     
     const dispatch = useDispatch();
     const {editing, selectedTask} = useSelector(state => state.taskReducer);
-    const currentUser = useSelector(state => state.userReducer);
+    const currentUser = useSelector(state => state.userReducer.name);
     
 
     const iniciando = getValues('task')==="" ? true : false;

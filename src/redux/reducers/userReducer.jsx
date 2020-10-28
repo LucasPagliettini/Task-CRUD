@@ -1,13 +1,13 @@
 const { USER_LOGIN, USER_LOGOUT } = require("../actions/userAction");
 
-const defaultUserState = "";
+const defaultUserState = {name: null};
 
 const userReducer = (state = defaultUserState, action) => {
     switch(action.type){
         case USER_LOGIN:
-            return action.payload;
+            return {...state, name:action.payload};
         case USER_LOGOUT:
-            return "";
+            return {...state, name:null};
         
         default:
             return state;

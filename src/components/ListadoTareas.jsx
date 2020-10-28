@@ -6,7 +6,7 @@ const ListadoTareas = () => {
 
     const globalState = useSelector(state => state);
     const {taskList} = globalState.taskReducer;
-    const currentUser = globalState.userReducer;
+    const currentUser = globalState.userReducer.name;
     const currentUserTaskList = taskList.filter(iter => iter.user===currentUser)
 
 

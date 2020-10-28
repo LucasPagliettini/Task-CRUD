@@ -4,8 +4,8 @@ import UserLogin from './UserLogin';
 import { useSelector } from 'react-redux';
 
 const Appp = () => {
-    const currentUser = useSelector(state => state.userReducer);
-    const logued = currentUser !== "" ? true : false;
+    const currentUser = useSelector(state => state.userReducer.name);
+    const logued = currentUser !== null ? true : false;
 
     return (
         <div>
